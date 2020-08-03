@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Todo List
+{% endblock title %}
+
+{% block body %}
+
+  <div style="margin-top:50px" class = "container">
+    Hoş Geldin: <strong>{{logged_user}}</strong>
+    <form action="/logout" method ="post">
+    <button type="submit" class = "btn btn-danger btn-sm">Kullanıcı Değiştir</button>
+    </form>
+    <hr>
+    <h3>Todo List</h3>
+    <hr>
+
+
+    <form action="/add" method="post">
+    <label style = "margin-left:2px" for="#title" class = "FormGroupExampleInput">Todo Başlık</label>
+    
+    <input id="#title" name ="title" class="form-control form-control-lg" type="text" placeholder="Başlık...">
+    <button style="margin-left:2px; margin-top:8px" class="btn btn-outline-success" type="submit">Ekle</button>
+    <hr>
+    </form>
+    
+<form action="/update" method="post">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#id</th>
+      <th scope="col">Todo Başlık</th>
+      <th scope="col">Durum</th>
+      <th scope="col">Todo'yu Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for todo in todos %}
+        {% if logged_user == todo.user %}
+          <tr>
+          <th scope="row">{{todo.id}}</th>
+          <td>{{todo.title}}</td>
+
+          {% if todo.complete %}
+          <td><input name = "complete{{todo.id}}" type="checkbox" style = "margin-right:3px" value={{todo.id}} checked>Yapıldı</td>
+          {% else %}
+          <td><input name = "complete{{todo.id}}" type="checkbox" style = "margin-right:3px" value={{todo.id}}>Yapıldı</td>
+          {% endif %}
+
+          <td><input name = "delete{{todo.id}}" type="checkbox" style = "margin-right:3px" value={{todo.id}}>Sil</td>
+          </tr>
+        {% endif %}
+          
+    {% endfor %}
+    
+  </tbody>
+</table>
+ <button style="margin-left:2px; margin-bottom:5px;" class="btn btn-outline-success" type="submit">Güncelle</button>
+ </form>
+    </div>
+
+{% endblock body %}
+

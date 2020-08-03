@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Kullanıcı Ekle
+{% endblock title %}
+
+{% block body %}
+{% from "includes/formhelpers.html" import render_field %}
+<form style = "padding: 70px 0; text-align: center;" method=post>
+  <dl>
+    {{ render_field(form.user) }}
+    {{ render_field(form.password) }}
+  </dl>
+  <p><input class="btn btn-success" type=submit value="Kullanıcıyı Kaydet">
+</form>
+{% endblock body %}
